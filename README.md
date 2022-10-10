@@ -12,7 +12,16 @@ TODO
 
 ## Contributing
 Any contribution is welcome.
-To install, first install `pipenv`
+
+### Using conda
+To install using conda use
+
+```
+conda env create -f ref-fetch.yml
+```
+
+### Using pip
+To install using pip, first install `pipenv`
 ```
 pip install pipenv
 ```  
