@@ -7,28 +7,51 @@ class ScholarlyResult(AbstractResult):
     
     @property
     def title(self):
-        return self.result["bib"]["title"]
+        try:
+            title = self.result["bib"]["title"]
+        except KeyError:
+            return "title not available" 
+        return title
 
     @property
     def author(self):
-        return self.result["bib"]["author"]
+        try:
+            author = self.result["bib"]["author"]
+        except KeyError:
+            return "author not available" 
+        return author 
 
     @property
     def venue(self):
-        return self.result["bib"]["venue"]
+        try:
+            venue = self.result["bib"]["venue"]
+        except KeyError:
+            return "venue not available" 
+        return venue 
 
     @property
     def n_cit(self):
-        return self.result["num_citations"]
+        try:
+            n_cit = self.result["num_citations"]
+        except KeyError:
+            return "n_cit not available" 
+        return n_cit 
 
     @property
     def year(self):
-        return self.result["bib"]["year"]
+        try: 
+            year = self.result["bib"]["year"]
+        except KeyError:
+            return "year not available" 
+        return year
 
     @property
     def abstract(self):
-        return self.result["bib"]["abstract"]
-
+        try: 
+            abstract = self.result["bib"]["abstract"]
+        except KeyError:
+            return "abstract not available" 
+        return abstract 
 
     def get_bibtex(self):
         return scholarly.bibtex(self.result)
