@@ -10,7 +10,7 @@ class ScholarlyResult(AbstractResult):
         try:
             title = self.result["bib"]["title"]
         except KeyError:
-            return "title not available" 
+            return "" 
         return title
 
     @property
@@ -18,7 +18,7 @@ class ScholarlyResult(AbstractResult):
         try:
             author = self.result["bib"]["author"]
         except KeyError:
-            return "author not available" 
+            return "" 
         return author 
 
     @property
@@ -26,7 +26,7 @@ class ScholarlyResult(AbstractResult):
         try:
             venue = self.result["bib"]["venue"]
         except KeyError:
-            return "venue not available" 
+            return "" 
         return venue 
 
     @property
@@ -34,7 +34,7 @@ class ScholarlyResult(AbstractResult):
         try:
             n_cit = self.result["num_citations"]
         except KeyError:
-            return "n_cit not available" 
+            return "" 
         return n_cit 
 
     @property
@@ -42,7 +42,7 @@ class ScholarlyResult(AbstractResult):
         try: 
             year = self.result["bib"]["year"]
         except KeyError:
-            return "year not available" 
+            return "" 
         return year
 
     @property
@@ -50,7 +50,7 @@ class ScholarlyResult(AbstractResult):
         try: 
             abstract = self.result["bib"]["abstract"]
         except KeyError:
-            return "abstract not available" 
+            return "" 
         return abstract 
 
     def get_bibtex(self):
