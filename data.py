@@ -32,10 +32,10 @@ class ResultData:
         """Initialize results from __q and puts them in results.
         
         __q is an iterator of AbstractResults, so calling next on its elements never get the same element twice."""
-        self.results += [next(self.__q for _ in range(n))]
+        self.results += [next(self.__q) for _ in range(n)]
 
     def add_results(self, new_res):
-        self.selected.update.add(new_res)
+        self.selected.update(new_res)
     
     def rm_results(self, to_del):
         self.selected.difference_update(to_del)            
