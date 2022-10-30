@@ -17,10 +17,6 @@ prev_line_cmd = "p"
 quit_cmd = "q"
 
 
-def result_table(
-    q: Iterable[AbstractResult], 
-    search_query: str,
-    start: int) -> Table:
     
     end = start + 10
     table_title = f"[info]Results for:[/info] [success]{search_query}[/success]"
