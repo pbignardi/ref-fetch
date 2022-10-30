@@ -21,8 +21,8 @@ class ResultData:
         self.search = search
         # output of the search from the scholarly interface
         self.__q = q
-        # list of indices with selected publications
-        self.selected = []
+        # set of indices with selected publications
+        self.selected = set()
         # list of instantiated results from the search
         self.results = []
         self.init_results(30)
@@ -34,6 +34,11 @@ class ResultData:
         __q is an iterator of AbstractResults, so calling next on its elements never get the same element twice."""
         self.results += [next(self.__q for _ in range(n))]
 
+    def add_results(self, new_res):
+        self.selected.update.add(new_res)
+    
+    def rm_results(self, to_del):
+        self.selected.difference_update(to_del)            
 
 
 class ResultParameters:
