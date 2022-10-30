@@ -40,6 +40,14 @@ class ResultData:
     def rm_results(self, to_del):
         self.selected.difference_update(to_del)            
 
+    @property
+    def active(self):
+        """
+        Results entries visible in the table.
+        The ones with indices from start to start + n_it
+        """
+        return self.results[self.start:self.start+self.n_it]
+
 
 class ResultParameters:
     """
