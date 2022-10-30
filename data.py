@@ -15,9 +15,7 @@ class ResultData:
     def __init__(
         self,
         search: str, 
-        q: Iterator[AbstractResult],
-        start = 0,
-        n_items = 10):
+        q: Iterator[AbstractResult]):
 
         # search text used on Scholar
         self.search = search
