@@ -8,6 +8,10 @@ pyperclip = "*"
 typer = "*"
 scholarly = "*"
 rich = "*"
+inquirer = "*"
+selenium = "*"
+chromedriver = "*"
+getch = "*"
 
 [dev-packages]
 
