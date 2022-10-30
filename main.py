@@ -8,7 +8,8 @@ from rich.theme import Theme
 from rich.box import SIMPLE_HEAD, MINIMAL_HEAVY_HEAD, SIMPLE_HEAVY
 from rich.live import Live
 from getch import getch
-from console import console
+from rich.console import Console
+#from console import console
 
 DEBUG = True
 
@@ -53,6 +54,7 @@ def result_table(q: Iterable[AbstractResult], search_query: str, start: int) -> 
     return results
 
 def main():
+    console = Console()
     if DEBUG:
         import pickle
         with open("test_set", "rb") as f:
@@ -67,7 +69,7 @@ def main():
     
     start = 0
 
-    console.print(f"[info]Use [warning]{next_line_cmd}[/warning] and [warning]{prev_line_cmd}[/warning] to navigate the results[/info]")
+    console.print(f"[bold bright_cyan]Use [bold magenta]{next_line_cmd}[/bold magenta] and [bold magenta]{prev_line_cmd}[/bold magenta] to navigate the results[/bold bright_cyan]")
 
     with Live(result_table(q_res, search, start), screen=True, auto_refresh=False, console=console) as live:
         while True:
