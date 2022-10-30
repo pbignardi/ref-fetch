@@ -16,7 +16,8 @@ class ScholarlyResult(AbstractResult):
     @property
     def author(self):
         try:
-            author = self.result["bib"]["author"]
+            author_list = self.result["bib"]["author"]
+            author = ", ".join(author_list)
         except KeyError:
             return "" 
         return author 
@@ -32,7 +33,7 @@ class ScholarlyResult(AbstractResult):
     @property
     def n_cit(self):
         try:
-            n_cit = self.result["num_citations"]
+            n_cit = str(self.result["num_citations"])
         except KeyError:
             return "" 
         return n_cit 
@@ -40,7 +41,7 @@ class ScholarlyResult(AbstractResult):
     @property
     def year(self):
         try: 
-            year = self.result["bib"]["year"]
+            year = str(self.result["bib"]["pub_year"])
         except KeyError:
             return "" 
         return year
