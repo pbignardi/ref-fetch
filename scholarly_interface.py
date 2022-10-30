@@ -1,5 +1,8 @@
 from abstract_result import AbstractResult
-from scholarly import scholarly
+from scholarly import scholarly, ProxyGenerator
+from typing import Iterable
+from console import console
+
 
 class ScholarlyResult(AbstractResult):
     def __init__(self, result: dict):
@@ -58,6 +61,12 @@ class ScholarlyResult(AbstractResult):
         return scholarly.bibtex(self.result)
 
 def scholarly_search(query: str):
+    pg = ProxyGenerator()
+
+    console.print("[bold]->[/bold] [info]Connecting to proxy...[/info]")
+    scholarly.use_proxy(pg)
+
+    console.print("[bold]->[/bold] [info]Searching on Google Scholar...[/info]")
     query_results = scholarly.search_pubs(query)
     query_results = map(ScholarlyResult, query_results)
     return query_results
