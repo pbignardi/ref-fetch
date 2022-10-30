@@ -17,10 +17,7 @@ prev_line_cmd = "p"
 quit_cmd = "q"
 
 
-def result_table(
-    q: Iterable[AbstractResult], 
-    search_query: str,
-    start: int) -> Table:
+def result_table(q: Iterable[AbstractResult], search_query: str, start: int) -> Table:
     
     end = start + 10
     table_title = f"[info]Results for:[/info] [success]{search_query}[/success]"
@@ -72,9 +69,7 @@ def main():
 
     console.print(f"[info]Use [warning]{next_line_cmd}[/warning] and [warning]{prev_line_cmd}[/warning] to navigate the results[/info]")
 
-    with Live(result_table(q_res, search, start), 
-            refresh_per_second=10, 
-            console=console) as live:
+    with Live(result_table(q_res, search, start), screen=True, auto_refresh=False, console=console) as live:
         while True:
             cmd = getch()
             if cmd == next_line_cmd:
@@ -86,9 +81,7 @@ def main():
             if cmd == quit_cmd:
                 return
 
-            live.update(
-                result_table(q_res, search, start)
-                )
+            live.update(result_table(q_res, search, start), refresh=True)
 
 
 
