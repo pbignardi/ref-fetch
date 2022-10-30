@@ -70,6 +70,9 @@ def scholarly_search(query: str):
     query_results = scholarly.search_pubs(query)
     query_results = map(ScholarlyResult, query_results)
     return query_results
+
+def init_results(q: Iterable[ScholarlyResult], n = 10):
+    return [next(q) for i in range(n)]
     
 
     
