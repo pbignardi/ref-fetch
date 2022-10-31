@@ -18,8 +18,8 @@ class Configuration:
             "clear": "c"}):
         self.n_it = n_it
         self.cmds = keys
-        self.current_color = "magenta"
-        self.select_color = "yellow"
+        self.current_color = "green"
+        self.select_color = "cyan"
         
     
 class ResultData:
