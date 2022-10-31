@@ -48,7 +48,9 @@ def res_table(rd: ResultData):
     return table
 
 def selected_bar(rd:ResultData):
-    pass
+    formatted_text = "[bold magenta]" + "[/bold magenta], [bold magenta]".join(map(str, rd.selected)) + "[/bold magenta]"
+    return "Selected publications : " + formatted_text
 
 def footer_bar(config: Configuration):
-    return "footer"
+    comands_pair = [f"{k}: [bold yellow]{v}[/]" for k,v in config.cmds.items()]
+    return ", ".join(comands_pair)

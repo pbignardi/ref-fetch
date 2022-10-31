@@ -7,7 +7,7 @@ from rich.layout import Layout
 from getch import getch
 from console import console
 from data import ResultData, Configuration
-from renderables import footer_bar, res_table
+from renderables import footer_bar, res_table, selected_bar
 
 
 DEBUG = True
@@ -21,7 +21,8 @@ def result_updater(rd: ResultData):
     # return the result table always
     yield res_table(rd)
     # return the footer bar always
-    #yield footer_bar()
+    yield selected_bar(rd)
+    yield footer_bar(rd.config)
     pass
 
 def main():
