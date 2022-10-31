@@ -14,7 +14,8 @@ class Configuration:
             "pg_down": "n", 
             "pg_up": "p", 
             "select": "s", 
-            "quit": "q"}):
+            "quit": "q",
+            "clear": "c"}):
         self.n_it = n_it
         self.cmds = keys
         self.current_color = "magenta"
@@ -118,6 +119,8 @@ class ResultData:
                     self.rm_results([self.current])
                 else:
                     self.add_results([self.current])
+            if new_cmd == self.config.cmds["clear"]:
+                self.selected.clear()
             if new_cmd == self.config.cmds["quit"]:
                 exit()
 
