@@ -8,15 +8,9 @@ from getch import getch
 from console import console
 from data import ResultData, Configuration
 from renderables import footer_bar, res_table
-from typing import List
 
 
 DEBUG = True
-
-next_line_cmd = "n"
-prev_line_cmd = "p"
-select_cmd = "s"
-quit_cmd = "q"
 
 
 @group()
@@ -27,7 +21,7 @@ def result_updater(rd: ResultData):
     # return the result table always
     yield res_table(rd)
     # return the footer bar always
-    #yield footer_bar()
+    yield footer_bar()
     pass
 
 def main():
@@ -41,8 +35,7 @@ def main():
         rdata = ResultData(search, iter(q_res), config)
         
     else:
-        search = Prompt.ask("Enter search query")
-        console.print("[info]Connecting to proxy...[/info]")
+        search = Prompt.ask("Enter search query", console=console)
         q = scholarly_search(search)
         rdata = ResultData(search, q, config)
 
@@ -53,13 +46,7 @@ def main():
             console=console) as live:
         while True:
             cmd = getch()
-            if cmd == config.legal_cmds["next"]:
-                rdata.start += 1
-            if cmd == config.legal_cmds["previous"]:
-                rdata.start -= 1
-            if cmd == config.legal_cmds["quit"]:
-                return
-
+            rdata.cmd = cmd
             live.update(result_updater(rdata), refresh=True)
 
 
