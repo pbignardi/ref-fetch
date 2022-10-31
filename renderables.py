@@ -31,7 +31,7 @@ def res_table(rd: ResultData, rp: ResultParameters):
         color = "bold magenta" if (i in rd.selected) else ""
         # add row
         table.add_row(
-            str(i), 
+            str(rp.start + i), 
             entry.title,
             entry.author,
             entry.year,
