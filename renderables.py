@@ -1,6 +1,7 @@
 from rich.table import Table
 from rich.box import SIMPLE_HEAD, SIMPLE_HEAVY
 from data import ResultData, ResultParameters
+from console import console
 
 
 def res_table(rd: ResultData, rp: ResultParameters):
@@ -10,12 +11,14 @@ def res_table(rd: ResultData, rp: ResultParameters):
     """
     title = f"[info]Results for:[/info] [success]{rd.search}[/success]"
 
+    hl = ["dim", ""] if rp.start % 2 == 0 else ["", "dim"]
+
     table = Table(
         expand=True,
         show_lines=False,
         title=title,
         box=SIMPLE_HEAVY,
-        row_styles=["dim", ""],
+        row_styles=hl,
         show_footer=True
     )
     table.add_column("[magenta][Id][/magenta]", max_width=7)
