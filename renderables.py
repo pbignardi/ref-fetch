@@ -39,3 +39,9 @@ def res_table(rd: ResultData, rp: ResultParameters):
             entry.n_cit,
             style=color)
     return table
+
+def selected_bar(rd:ResultData, rp: ResultParameters):
+    pass
+
+def footer_bar(rp:ResultParameters):
+    return "footer"
