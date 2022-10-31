@@ -1,17 +1,17 @@
 from rich.table import Table
 from rich.box import SIMPLE_HEAD, SIMPLE_HEAVY
-from data import ResultData, ResultParameters
+from data import Configuration, ResultData
 from console import console
 
 
-def res_table(rd: ResultData, rp: ResultParameters):
+def res_table(rd: ResultData):
     """
     Function to return table with results
     Display table from rp.start to rp.start+rp.n_it
     """
     title = f"[info]Results for:[/info] [success]{rd.search}[/success]"
 
-    hl = ["dim", ""] if rp.start % 2 == 0 else ["", "dim"]
+    hl = ["dim", ""] if rd.start % 2 == 0 else ["", "dim"]
 
     table = Table(
         expand=True,
@@ -28,13 +28,12 @@ def res_table(rd: ResultData, rp: ResultParameters):
     table.add_column("[header]Venue[/header]", ratio=3)
     table.add_column("[header]N. Citations[/header]",max_width=10)
 
-    active = rd.results[rp.start:rp.start+rp.n_it]
-    for i, entry in enumerate(active):
+    for i, entry in enumerate(rd.visible):
         # set the font to something if entry is selected, else standard
         color = "bold magenta" if (i in rd.selected) else ""
         # add row
         table.add_row(
-            str(rp.start + i), 
+            str(rd.start + i), 
             entry.title,
             entry.author,
             entry.year,
@@ -43,8 +42,8 @@ def res_table(rd: ResultData, rp: ResultParameters):
             style=color)
     return table
 
-def selected_bar(rd:ResultData, rp: ResultParameters):
+def selected_bar(rd:ResultData):
     pass
 
-def footer_bar(rp:ResultParameters):
+def footer_bar(config: Configuration):
     return "footer"
