@@ -11,14 +11,11 @@ def res_table(rd: ResultData):
     """
     title = f"[info]Results for:[/info] [success]{rd.search}[/success]"
 
-    hl = ["dim", ""] if rd.start % 2 == 0 else ["", "dim"]
-
     table = Table(
         expand=True,
         show_lines=False,
         title=title,
         box=SIMPLE_HEAVY,
-        row_styles=hl,
         show_footer=True
     )
     table.add_column("[magenta][Id][/magenta]", max_width=7, no_wrap=True)
@@ -29,8 +26,14 @@ def res_table(rd: ResultData):
     table.add_column("[header]N. Citations[/header]",max_width=10, no_wrap=True)
 
     for i, entry in enumerate(rd.visible):
+        global_index = rd.start + i
         # set the font to something if entry is selected, else standard
-        color = "bold magenta" if (i in rd.selected) else ""
+        if global_index in rd.selected:
+            style = "bold yellow" 
+        elif global_index % 2 == 0:
+            style = ""
+        else:
+            style = "dim"
         # add row
         table.add_row(
             str(rd.start + i), 
@@ -39,7 +42,7 @@ def res_table(rd: ResultData):
             entry.year,
             entry.venue,
             entry.n_cit,
-            style=color)
+            style=style)
     return table
 
 def selected_bar(rd:ResultData):
