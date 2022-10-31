@@ -4,6 +4,10 @@ from data import ResultData, ResultParameters
 
 
 def res_table(rd: ResultData, rp: ResultParameters):
+    """
+    Function to return table with results
+    Display table from rp.start to rp.start+rp.n_it
+    """
     title = f"[info]Results for:[/info] [success]{rd.search}[/success]"
 
     table = Table(
