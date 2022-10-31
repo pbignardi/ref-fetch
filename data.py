@@ -9,12 +9,17 @@ class Configuration:
         self,
         n_it: int = 10, 
         keys: dict = {
-            "next": "n", 
-            "previous": "p", 
+            "down": "j",
+            "up": "k",
+            "pg_down": "n", 
+            "pg_up": "p", 
             "select": "s", 
             "quit": "q"}):
         self.n_it = n_it
         self.cmds = keys
+        self.current_color = "magenta"
+        self.select_color = "yellow"
+        
     
 class ResultData:
     """
@@ -49,11 +54,12 @@ class ResultData:
         # result parameter reference
         
         ## PARAMETER DATA
-        self._n_it = config.n_it 
-        self._start = 0
-        self._cmd = ""
+        self.__nit = config.n_it 
+        self.__start = 0
+        self.__cmd = ""
         self.__config = config
         self.__selectmode = False
+        self.__current = 0
         # iterator __q is finished
         self.__empty_iter = False
     
@@ -66,8 +72,12 @@ class ResultData:
         return self.__selectmode
 
     @property
+    def current(self):
+        return self.__current
+
+    @property
     def start(self):
-        return self._start
+        return self.__start
     
     @start.setter
     def start(self, start: int):
@@ -79,31 +89,40 @@ class ResultData:
             if start > len(self.__results) - self.n_it:
                 return
         
-        self._start = start
+        self.__start = start
     
     @property
     def n_it(self):
-        return self._n_it
+        return self.__nit
 
     @property
     def cmd(self):
-        return self._cmd
+        return self.__cmd
     
     @cmd.setter
     def cmd(self, new_cmd):
         if new_cmd in self.config.cmds.values():
-            self._cmd = new_cmd
-            if new_cmd == self.config.cmds["next"]:
-                self.start += 1
-            if new_cmd == self.config.cmds["previous"]:
-                self.start -= 1
+            self.__cmd = new_cmd
+            if new_cmd == self.config.cmds["down"]:
+                self.down()
+            if new_cmd == self.config.cmds["up"]:
+                self.up()
+            if new_cmd == self.config.cmds["pg_down"]:
+                self.start += self.n_it
+                self.__current = self.start + 1
+            if new_cmd == self.config.cmds["pg_up"]:
+                self.start -= self.n_it
+                self.__current = self.start + 1
             if new_cmd == self.config.cmds["select"]:
-                self.__selectmode = True
+                if self.current in self.selected:
+                    self.rm_results([self.current])
+                else:
+                    self.add_results([self.current])
             if new_cmd == self.config.cmds["quit"]:
                 exit()
 
         else:
-            self._cmd = ""
+            self.__cmd = ""
 
     def __init_results(self, n = 10):
         """
@@ -119,6 +138,29 @@ class ResultData:
         finally:
             self.__last = len(self.__results) - 1
 
+    def down(self):
+        if self.__empty_iter:
+            if self.__current + 1 > self.__last:
+                return
+
+        self.__current += 1
+
+        visible_end = self.start + self.n_it - 1
+        # if newly selected is ad the bottom of the table, increase start by 1
+        if self.current >= visible_end:
+            self.start += 1
+        
+        
+
+    def up(self):    
+        if self.__current - 1 < 0:
+            return
+        
+        self.__current -= 1
+
+        visible_start = self.start
+        if self.current <= visible_start:
+            self.start -= 1
 
 
     @property
@@ -130,7 +172,7 @@ class ResultData:
 
     @property
     def visible(self):
-        return self.results[self.start:self.start + self.n_it - 1]
+        return self.results[self.start:self.start + self.n_it]
 
 
     def add_results(self, new_res):
