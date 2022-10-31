@@ -1,6 +1,20 @@
+from dataclasses import dataclass
 from abstract_result import AbstractResult
-from typing import Iterator
+from typing import Iterator, List
 
+@dataclass
+class Configuration:
+    def __init__(
+        self,
+        n_it: int = 10, 
+        legal_cmds: dict = {
+            "next": "n", 
+            "previous": "p", 
+            "select": "s", 
+            "quit": "q"}):
+        self.n_it = n_it
+        self.legal_cmds = legal_cmds 
+    
 class ResultData:
     """
     Data class for search results.
