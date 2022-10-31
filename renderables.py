@@ -23,7 +23,7 @@ def res_table(rd: ResultData):
     table.add_column("[header]Author[/header]", ratio=2, no_wrap=True)
     table.add_column("[header]Year[/header]", max_width=10, no_wrap=True)
     table.add_column("[header]Venue[/header]", ratio=3, no_wrap=True)
-    table.add_column("[header]N. Citations[/header]",max_width=10, no_wrap=True)
+    table.add_column("[header]Citations[/header]",max_width=10, no_wrap=True)
 
     for i, entry in enumerate(rd.visible):
         global_index = rd.start + i
