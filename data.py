@@ -59,7 +59,6 @@ class ResultData:
         self.__start = 0
         self.__cmd = ""
         self.__config = config
-        self.__selectmode = False
         self.__current = 0
         # iterator __q is finished
         self.__empty_iter = False
@@ -67,10 +66,6 @@ class ResultData:
     @property
     def config(self):
         return self.__config
-
-    @property
-    def select_mode(self):
-        return self.__selectmode
 
     @property
     def current(self):
