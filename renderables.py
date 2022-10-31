@@ -9,12 +9,9 @@ def res_table(rd: ResultData):
     Function to return table with results
     Display table from rp.start to rp.start+rp.n_it
     """
-    title = f"[info]Results for:[/info] [success]{rd.search}[/success]"
-
     table = Table(
         expand=True,
         show_lines=False,
-        title=title,
         box=SIMPLE_HEAVY,
         show_footer=True
     )
