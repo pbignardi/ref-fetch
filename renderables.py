@@ -18,6 +18,7 @@ def res_table(rd: ResultData):
         box=SIMPLE_HEAVY,
         show_footer=True
     )
+    table.add_column("", width=4, no_wrap=True, justify="center")
     table.add_column("[magenta][Id][/magenta]", max_width=7, no_wrap=True)
     table.add_column("[header]Title[/header]", ratio=5, no_wrap=True)
     table.add_column("[header]Author[/header]", ratio=2, no_wrap=True)
@@ -28,15 +29,19 @@ def res_table(rd: ResultData):
     for i, entry in enumerate(rd.visible):
         global_index = rd.start + i
         # set the font to something if entry is selected, else standard
-        if global_index in rd.selected:
-            style = "bold yellow" 
+        if global_index == rd.current:
+            style = "bold " + rd.config.current_color
+        elif global_index in rd.selected:
+            style = rd.config.select_color 
         elif global_index % 2 == 0:
             style = ""
         else:
             style = "dim"
+        selection_arrow = "[bold]->[/bold]" if (global_index == rd.current) else ""
         # add row
         table.add_row(
-            str(rd.start + i), 
+            selection_arrow,
+            str(global_index), 
             entry.title,
             entry.author,
             entry.year,
