@@ -21,7 +21,7 @@ def result_updater(rd: ResultData):
     # return the result table always
     yield res_table(rd)
     # return the footer bar always
-    yield footer_bar()
+    #yield footer_bar()
     pass
 
 def main():
