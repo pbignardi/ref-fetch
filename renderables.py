@@ -21,12 +21,12 @@ def res_table(rd: ResultData):
         row_styles=hl,
         show_footer=True
     )
-    table.add_column("[magenta][Id][/magenta]", max_width=7)
-    table.add_column("[header]Title[/header]", ratio=5)
-    table.add_column("[header]Author[/header]", ratio=2)
-    table.add_column("[header]Year[/header]", max_width=10)
-    table.add_column("[header]Venue[/header]", ratio=3)
-    table.add_column("[header]N. Citations[/header]",max_width=10)
+    table.add_column("[magenta][Id][/magenta]", max_width=7, no_wrap=True)
+    table.add_column("[header]Title[/header]", ratio=5, no_wrap=True)
+    table.add_column("[header]Author[/header]", ratio=2, no_wrap=True)
+    table.add_column("[header]Year[/header]", max_width=10, no_wrap=True)
+    table.add_column("[header]Venue[/header]", ratio=3, no_wrap=True)
+    table.add_column("[header]N. Citations[/header]",max_width=10, no_wrap=True)
 
     for i, entry in enumerate(rd.visible):
         # set the font to something if entry is selected, else standard
