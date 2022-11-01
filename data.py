@@ -20,6 +20,7 @@ class Configuration:
         self.cmds = keys
         self.current_color = "green"
         self.select_color = "cyan"
+        self.command_color = "orange3"
         
     
 class ResultData:
