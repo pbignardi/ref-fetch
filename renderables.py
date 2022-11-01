@@ -1,3 +1,4 @@
+from rich.layout import Layout
 from rich.table import Table
 from rich.box import SIMPLE_HEAD, SIMPLE_HEAVY
 from data import Configuration, ResultData
@@ -56,3 +57,14 @@ def footer_bar(config: Configuration):
     cmd_color = config.command_color
     comands_pair = [f"{k}: [bold {cmd_color}]{v}[/]" for k,v in config.cmds.items()]
     return ", ".join(comands_pair)
+
+def make_layout() -> Layout:
+    layout = Layout(name="root")
+    layout.split(
+        Layout(name="table"),
+        Layout(name="selected"),
+        Layout(name="footer")
+    )
+    layout["selected"].size = 3
+    layout["footer"].size = 3
+    return layout
