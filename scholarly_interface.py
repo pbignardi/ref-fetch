@@ -61,6 +61,9 @@ class ScholarlyResult(AbstractResult):
         return scholarly.bibtex(self.result)
 
 def scholarly_search(query: str):
+    """Interface to the search function of Scholarly
+    
+    This function MUST return an Iterator of Abstract Results"""
     pg = ProxyGenerator()
 
     console.print("[bold]->[/bold] [info]Connecting to proxy...[/info]")
@@ -71,8 +74,6 @@ def scholarly_search(query: str):
     query_results = map(ScholarlyResult, query_results)
     return query_results
 
-def init_results(q: Iterable[ScholarlyResult], n = 10):
-    return [next(q) for i in range(n)]
     
 
     
