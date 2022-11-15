@@ -100,21 +100,6 @@ class ResultData:
     def cmd(self, new_cmd):
         if new_cmd in self.config.cmds.values():
             self.__cmd = new_cmd
-            if new_cmd == self.config.cmds["down"]:
-                self.down()
-            if new_cmd == self.config.cmds["up"]:
-                self.up()
-            if new_cmd == self.config.cmds["pg_down"]:
-                self.pg_down()
-            if new_cmd == self.config.cmds["pg_up"]:
-                self.pg_up()
-            if new_cmd == self.config.cmds["select"]:
-                self.select()
-            if new_cmd == self.config.cmds["clear"]:
-                self.clear()
-            if new_cmd == self.config.cmds["quit"]:
-                exit()
-
         else:
             self.__cmd = ""
 
