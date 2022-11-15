@@ -20,6 +20,7 @@ class Configuration:
         self.cmds = keys
         self.current_color = "green"
         self.select_color = "cyan"
+        self.command_color = "orange3"
         
     
 class ResultData:
@@ -99,28 +100,30 @@ class ResultData:
     def cmd(self, new_cmd):
         if new_cmd in self.config.cmds.values():
             self.__cmd = new_cmd
-            if new_cmd == self.config.cmds["down"]:
-                self.down()
-            if new_cmd == self.config.cmds["up"]:
-                self.up()
-            if new_cmd == self.config.cmds["pg_down"]:
-                self.start += self.n_it
-                self.__current = self.start + 1
-            if new_cmd == self.config.cmds["pg_up"]:
-                self.start -= self.n_it
-                self.__current = self.start + 1
-            if new_cmd == self.config.cmds["select"]:
-                if self.current in self.selected:
-                    self.rm_results([self.current])
-                else:
-                    self.add_results([self.current])
-            if new_cmd == self.config.cmds["clear"]:
-                self.selected.clear()
-            if new_cmd == self.config.cmds["quit"]:
-                exit()
-
         else:
             self.__cmd = ""
+
+    def pg_down(self):
+        """Set visible elements to the next page"""
+        self.start += self.n_it
+        self.__current = self.start + 1
+    
+    def pg_up(self):
+        """Set visible elements to the previous page"""
+        self.start -= self.n_it
+        self.__current = self.start + 1
+
+    def select(self):
+        """Add the currently highlighted element if 
+        it is not in the selected dict, else it is removed"""
+        if self.current in self.select:
+            self.rm_results([self.current])
+        else:
+            self.add_results([self.current])
+
+    def clear(self):
+        """Clear all the selected items"""
+        self.selected.clear()        
 
     def __init_results(self, n = 10):
         """

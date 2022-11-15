@@ -1,3 +1,4 @@
+from rich.layout import Layout
 from rich.table import Table
 from rich.box import SIMPLE_HEAD, SIMPLE_HEAVY
 from data import Configuration, ResultData
@@ -48,9 +49,22 @@ def res_table(rd: ResultData):
     return table
 
 def selected_bar(rd:ResultData):
-    formatted_text = "[bold magenta]" + "[/bold magenta], [bold magenta]".join(map(str, rd.selected)) + "[/bold magenta]"
-    return "Selected publications : " + formatted_text
+    color = rd.config.select_color
+    pubs_strings = [f"[{color}]{p}[/{color}]" for p in sorted(rd.selected)]
+    return "Selected publications : " + ", ".join(pubs_strings)
 
 def footer_bar(config: Configuration):
-    comands_pair = [f"{k}: [bold yellow]{v}[/]" for k,v in config.cmds.items()]
+    cmd_color = config.command_color
+    comands_pair = [f"{k}: [bold {cmd_color}]{v}[/]" for k,v in config.cmds.items()]
     return ", ".join(comands_pair)
+
+def make_layout() -> Layout:
+    layout = Layout(name="root")
+    layout.split(
+        Layout(name="table"),
+        Layout(name="selected"),
+        Layout(name="footer")
+    )
+    layout["selected"].size = 3
+    layout["footer"].size = 3
+    return layout
