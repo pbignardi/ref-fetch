@@ -44,11 +44,30 @@ def main():
 
     with Live(result_updater(rdata), 
             auto_refresh=False, 
-            console=console) as live:
+            console=console,
+            screen=True) as live:
         while True:
             cmd = getch()
             rdata.cmd = cmd
-            live.update(result_updater(rdata), refresh=True)
+
+            # Dispatch the cmd
+            if rdata.cmd == config.cmds["down"]:
+                rdata.down()
+            if rdata.cmd == config.cmds["up"]:
+                rdata.up()
+            if rdata.cmd == config.cmds["pg_down"]:
+                rdata.pg_down()
+            if rdata.cmd == config.cmds["pg_up"]:
+                rdata.pg_up()
+            if rdata.cmd == config.cmds["select"]:
+                rdata.select()
+            if rdata.cmd == config.cmds["clear"]:
+                rdata.clear()
+            if rdata.cmd == config.cmds["quit"]:
+                break
+
+            live.update(
+                result_updater(rdata), refresh=True)
 
 
 
