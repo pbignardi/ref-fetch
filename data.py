@@ -105,23 +105,40 @@ class ResultData:
             if new_cmd == self.config.cmds["up"]:
                 self.up()
             if new_cmd == self.config.cmds["pg_down"]:
-                self.start += self.n_it
-                self.__current = self.start + 1
+                self.pg_down()
             if new_cmd == self.config.cmds["pg_up"]:
-                self.start -= self.n_it
-                self.__current = self.start + 1
+                self.pg_up()
             if new_cmd == self.config.cmds["select"]:
-                if self.current in self.selected:
-                    self.rm_results([self.current])
-                else:
-                    self.add_results([self.current])
+                self.select()
             if new_cmd == self.config.cmds["clear"]:
-                self.selected.clear()
+                self.clear()
             if new_cmd == self.config.cmds["quit"]:
                 exit()
 
         else:
             self.__cmd = ""
+
+    def pg_down(self):
+        """Set visible elements to the next page"""
+        self.start += self.n_it
+        self.__current = self.start + 1
+    
+    def pg_up(self):
+        """Set visible elements to the previous page"""
+        self.start -= self.n_it
+        self.__current = self.start + 1
+
+    def select(self):
+        """Add the currently highlighted element if 
+        it is not in the selected dict, else it is removed"""
+        if self.current in self.select:
+            self.rm_results([self.current])
+        else:
+            self.add_results([self.current])
+
+    def clear(self):
+        """Clear all the selected items"""
+        self.selected.clear()        
 
     def __init_results(self, n = 10):
         """
